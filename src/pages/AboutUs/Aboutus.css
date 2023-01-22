@@ -1,0 +1,14 @@
+.about_us{
+    padding: 2% 10% 2% 10%;
+}
+.about_us_heading{
+    font-size: 40px;
+    font-weight: bold;
+}
+.about_us_desc{
+    font-size: 20px;
+    font-weight: bold;
+}
+.about_us_desc>p{
+    margin-top: 80px;
+}
