@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import "./FeedCard.css";
 import Avatar from "@mui/material/Avatar";
 import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import TurnedInNotOutlinedIcon from "@mui/icons-material/TurnedInNotOutlined";
+import TurnedInIcon from '@mui/icons-material/TurnedIn';
 
-function FeedCard({ image, name, tags, message }) {
+function FeedCard({ image, name, tags, message, likeCount }) {
+  const [isLiked, setIsLiked] = useState(false);
+  const [isSaved,setIsSaved] = useState(false);
+
+  function handleLikeClick() {
+    if (isLiked === true) {
+      setIsLiked(false);
+    } else {
+      setIsLiked(true);
+    }
+  }
+  function handleSaveClick() {
+    if(isSaved === true) {
+      setIsSaved(false);
+    } else {
+      setIsSaved(true);
+    }
+  }
+
   return (
     <div className="feed_card_container">
       <div className="feed_card_title">
@@ -23,6 +43,21 @@ function FeedCard({ image, name, tags, message }) {
       </div>
 
       <p>{message}</p>
+
+      <div>
+        <div className="icons">
+          <div className="icon" onClick={handleLikeClick}>
+            {isLiked ? <ThumbUpIcon /> : <ThumbUpOffAltOutlinedIcon />}
+            {isLiked ? likeCount + 1 : likeCount}
+          </div>
+          <div className="icon" onClick={handleSaveClick}>
+            {isSaved ? <TurnedInIcon/> : <TurnedInNotOutlinedIcon/>}
+          </div>
+          <div className="icon">
+            {<CommentOutlinedIcon/>}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

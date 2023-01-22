@@ -4,6 +4,7 @@ import FeedCard from "./FeedCard";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
+  const [input, setInput] = useState("");
 
   async function getPosts() {
     const response = await fetch("https://dummyjson.com/posts");
@@ -16,12 +17,31 @@ function Feed() {
     getPosts();
   }, []);
 
+  function addPosts() {
+    const copyArray = [...posts];
+    copyArray.unshift({
+      userId: 10,
+      name: "Rishi",
+      tags: ["HTML", "REACT"],
+      body: input,
+    });
+    setPosts(copyArray);
+    setInput("");
+  }
+
+  console.log(posts);
+
   return (
     <div className="feed_container">
       <div className="feed_add">
         <div className="feed_add_input">
-          <input />
-          <button>Add</button>
+          <input
+            type="text"
+            value={input}
+            placeholder="Write something..."
+            onChange={(event) => setInput(event.target.value)}
+          />
+          <button onClick={addPosts}>Add</button>
         </div>
 
         <button className="feed_add_photo">Add Photo</button>
@@ -30,9 +50,10 @@ function Feed() {
       {posts?.map((value) => (
         <FeedCard
           image={value.userId}
-          name={value.userId}
+          name={value.name}
           tags={value.tags}
           message={value.body}
+          likeCount={value.reactions}
         />
       ))}
     </div>
